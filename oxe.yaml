@@ -1,32 +1,32 @@
 $engine: 3
 $onesync: on
-name: Clean Base
+name: OXE Base
 version: 1.0.0
-author: DirkScripts
+author: Njoy
 description: >
   Only includes the base including qbx_core and any free releases will still
-  require you to insert your [CleanPack] folder from keymaster.
+  require you to insert your [OxePack] folder from keymaster.
 
 tasks:
   # DOWNLOAD BASE FILES FROM TXADMINRECIPE
   - action: download_github
-    src: https://github.com/Clean-Server-Pack/txAdminRecipe/
+    src: https://github.com/beastdummy/txadmin-recipe-oxe.git
     ref: main
-    dest: ./tmp/clean
+    dest: ./tmp/oxe
 
   # MAIN SERVER CONFIG
   - action: move_path
-    src: ./tmp/clean/server.cfg
+    src: ./tmp/oxe/server.cfg
     dest: ./server.cfg
 
   # SERVER CONFIGS
   - action: move_path
-    src: ./tmp/clean/server_configs
+    src: ./tmp/oxe/server_configs
     dest: ./server_configs
 
-  # BASE CLEAN LOGO  
+  # BASE Oxe LOGO  
   - action: move_path 
-    src: ./tmp/clean/myLogo.png
+    src: ./tmp/oxe/myLogo.png
     dest: ./myLogo.png
     overwrite: true
 
@@ -47,7 +47,7 @@ tasks:
   # ox_lib
   - action: download_file
     path: ./tmp/ox_lib.zip
-    url: https://github.com/overextended/ox_lib/releases/latest/download/ox_lib.zip
+    url: https://github.com/CommunityOx/ox_lib/releases/download/v3.32.3/ox_lib.zip
   - action: unzip
     dest: ./resources/[standalone]
     src: ./tmp/ox_lib.zip
@@ -76,96 +76,89 @@ tasks:
   - action: download_github
     dest: ./resources/[standalone]/pma-voice
     ref: main
-    src: https://github.com/Clean-Server-Pack/pma-voice
+    src: https://github.com/AWZ-Code/pma-voice/archive/refs/heads/main.zip
 
-  # ox_target | CLEAN VERSION
+  # ox_target | Oxe VERSION
   - action: download_file
     path: ./tmp/ox_target.zip
-    url: https://github.com/Clean-Server-Pack/ox_target/releases/download/latest_production/ox_target.zip
+    url: https://github.com/CommunityOx/ox_target/releases/download/v1.18.0/ox_target.zip
   - action: unzip
     dest: ./resources/[standalone]
     src: ./tmp/ox_target.zip
 
-  # sleepless_interact | CLEAN VERSION
+  # sleepless_interact | Oxe VERSION
   - action: download_file
     path: ./tmp/sleepless_interact.zip
-    url: https://github.com/Clean-Server-Pack/sleepless_interact/releases/download/latest_production/sleepless_interact.zip
+    url: https://github.com/Sleepless-Development/sleepless_interact/releases/download/v2.1.3/sleepless_interact.zip
   - action: unzip
     dest: ./resources/[standalone]
     src: ./tmp/sleepless_interact.zip
 
-  # clean_chat
+  # Oxe_chat
   - action: download_file
-    path: ./tmp/clean_chat.zip
-    url: https://github.com/Clean-Server-Pack/clean_chat/releases/download/latest_production/clean_chat.zip
+    path: ./tmp/bm_rpchat-main.zip
+    url: https://github.com/Garn123/bm_rpchat/archive/refs/heads/main.zip
   - action: unzip
     dest: ./resources/[standalone]
-    src: ./tmp/clean_chat.zip
+    src: ./tmp/bm_rpchat-main.zip
 
   # oxmysql
   - action: download_file
     path: ./tmp/oxmysql.zip
-    url: https://github.com/overextended/oxmysql/releases/latest/download/oxmysql.zip
+    url: https://github.com/CommunityOx/oxmysql/releases/download/v2.12.3/oxmysql.zip
   - action: unzip
     dest: ./resources/[standalone]
     src: ./tmp/oxmysql.zip
 
 
-  # [CLEAN] 
+  # [Oxe] 
   - action: ensure_dir 
-    path: ./resources/[clean]
+    path: ./resources/[oxe]
 
-  # [CLEAN/ACTIVITIES] 
+  # [Oxe/ACTIVITIES] 
   - action: ensure_dir 
-    path: ./resources/[clean]/[activities]
+    path: ./resources/[oxe]/[activities]
 
-  # [CLEAN/CORE] 
+  # [Oxe/CORE] 
   - action: ensure_dir 
-    path: ./resources/[clean]/[core]
+    path: ./resources/[oxe]/[core]
 
-  # clean_lib
-  - action: download_file
-    path: ./tmp/clean_lib.zip
-    url: https://github.com/Clean-Server-Pack/clean_lib/releases/download/latest_production/clean_lib.zip
-  - action: unzip
-    dest: ./resources/[clean]/[core]
-    src: ./tmp/clean_lib.zip
+  # oxe_lib — capa central OXE (ox_lib + oxmysql + bridges). Requiere esta carpeta junto a txAdminRecipe-main: ../oxe_lib
+  # Para despliegue solo con zip, sustituye por download_github / download_file + unzip hacia ./resources/[oxe]/[core]
+  - action: move_path
+    src: ../oxe_lib
+    dest: ./resources/[oxe]/[core]/oxe_lib
+    overwrite: true
 
-  # qbx_core | CLEAN VERSION
+  # qbx_core | Oxe VERSION
   - action: download_github
-    dest: ./resources/[clean]/[core]/qbx_core
+    dest: ./resources/[oxe]/[core]/qbx_core
     ref: main
-    src: https://github.com/Clean-Server-Pack/qbx_core
+    src: https://github.com/Qbox-project/qbx_core/releases/download/v1.23.0/qbx_core.zip
 
-  # [CLEAN/CRIMINAL] 
+  # [Oxe/CRIMINAL] 
   - action: ensure_dir 
-    path: ./resources/[clean]/[criminal]
+    path: ./resources/[oxe]/[criminal]
 
-  # [CLEAN/GOVERNMENT] 
+  # [Oxe/GOVERNMENT] 
   - action: ensure_dir 
-    path: ./resources/[clean]/[government]
+    path: ./resources/[oxe]/[government]
 
-  # [CLEAN/JOBS] 
+  # [Oxe/JOBS] 
   - action: ensure_dir 
-    path: ./resources/[clean]/[jobs]
+    path: ./resources/[oxe]/[jobs]
 
-  # [CLEAN/UI] 
+  # [Oxe/UI] 
   - action: ensure_dir 
-    path: ./resources/[clean]/[ui]
+    path: ./resources/[oxe]/[ui]
 
-  # [CLEAN/UTILITIES] 
+  # [Oxe/UTILITIES] 
   - action: ensure_dir 
-    path: ./resources/[clean]/[utilities]
+    path: ./resources/[oxe]/[utilities]
 
-  # clean_digiscanner 
-  - action: download_github
-    dest: ./resources/[clean]/[utilities]/clean_digiscanner
-    ref: main
-    src: https://github.com/Clean-Server-Pack/clean_digiscanner
-
-  # [CLEAN/VEHICLE] 
+  # [Oxe/VEHICLE] 
   - action: ensure_dir 
-    path: ./resources/[clean]/[vehicle]
+    path: ./resources/[oxe]/[vehicle]
 
   # [CREATORS] 
   - action: ensure_dir 
@@ -189,8 +182,8 @@ tasks:
   # SQL STUFF 
   - action: connect_database
   - action: query_database
-    file: ./tmp/clean/clean.sql
+    file: ./tmp/oxe/oxe.sql
    
-  # CLEAN UP
+  # Oxe UP
   - action: remove_path
     path: ./tmp
