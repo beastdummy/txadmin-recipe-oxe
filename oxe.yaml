@@ -1,7 +1,7 @@
 $engine: 3
 $onesync: on
 name: OXE Base
-version: 1.0.0
+version: 1.0.1
 author: Njoy
 description: >
   Base OXE con qbx_core. Tras el deploy, copia oxe_lib desde tu [OxePack] de
@@ -130,8 +130,8 @@ tasks:
   # ---------------------------------------------------------------------------
   # 5. [oxe]/[core]: carpeta oxe_lib (rellenar a mano desde Keymaster) + qbx_core
   # ---------------------------------------------------------------------------
-  #- action: ensure_dir
-  #  path: ./resources/[oxe]/[core]/oxe_lib
+  - action: ensure_dir
+    path: ./resources/[oxe]/[core]/oxe_lib
 
   - action: download_file
     path: ./tmp/qbx_core.zip
