@@ -4,9 +4,9 @@ name: OXE Base
 version: 1.0.0
 author: Njoy
 description: >
-  Base OXE con qbx_core. Las releases gratuitas siguen requiriendo tu carpeta
-  [OxePack] de keymaster. oxe_lib debe existir como ../oxe_lib respecto al
-  destino del deploy (o sustituir el move_path por descarga propia).
+  Base OXE con qbx_core. Tras el deploy, copia oxe_lib desde tu [OxePack] de
+  keymaster a resources/[oxe]/[core]/oxe_lib (la receta solo crea la carpeta;
+  txAdmin no permite rutas fuera del directorio del servidor).
 
 tasks:
   # ---------------------------------------------------------------------------
@@ -128,12 +128,10 @@ tasks:
     path: ./resources/[oxe]/[vehicle]
 
   # ---------------------------------------------------------------------------
-  # 5. [oxe]/[core]: oxe_lib (local) + qbx_core (release)
+  # 5. [oxe]/[core]: carpeta oxe_lib (rellenar a mano desde Keymaster) + qbx_core
   # ---------------------------------------------------------------------------
-  - action: move_path
-    src: ../oxe_lib
-    dest: ./resources/[oxe]/[core]/oxe_lib
-    overwrite: true
+  - action: ensure_dir
+    path: ./resources/[oxe]/[core]/oxe_lib
 
   - action: download_file
     path: ./tmp/qbx_core.zip
