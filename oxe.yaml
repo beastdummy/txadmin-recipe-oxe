@@ -1,0 +1,196 @@
+$engine: 3
+$onesync: on
+name: Clean Base
+version: 1.0.0
+author: DirkScripts
+description: >
+  Only includes the base including qbx_core and any free releases will still
+  require you to insert your [CleanPack] folder from keymaster.
+
+tasks:
+  # DOWNLOAD BASE FILES FROM TXADMINRECIPE
+  - action: download_github
+    src: https://github.com/Clean-Server-Pack/txAdminRecipe/
+    ref: main
+    dest: ./tmp/clean
+
+  # MAIN SERVER CONFIG
+  - action: move_path
+    src: ./tmp/clean/server.cfg
+    dest: ./server.cfg
+
+  # SERVER CONFIGS
+  - action: move_path
+    src: ./tmp/clean/server_configs
+    dest: ./server_configs
+
+  # BASE CLEAN LOGO  
+  - action: move_path 
+    src: ./tmp/clean/myLogo.png
+    dest: ./myLogo.png
+    overwrite: true
+
+  # ENSURE RESOURCE FOLDER  
+  - action: ensure_dir
+    path: ./resources
+    
+  # ENSURE SUB RESOURCE FOLDERS
+  # [CFX-DEFAULT] 
+  - action: download_github
+    src: https://github.com/citizenfx/cfx-server-data
+    subpath: resources
+    dest: ./resources/[cfx-default]   
+  # [STANDALONE] 
+  - action: ensure_dir
+    path: ./resources/[standalone] 
+
+  # ox_lib
+  - action: download_file
+    path: ./tmp/ox_lib.zip
+    url: https://github.com/overextended/ox_lib/releases/latest/download/ox_lib.zip
+  - action: unzip
+    dest: ./resources/[standalone]
+    src: ./tmp/ox_lib.zip
+
+  # bob74_ipl 
+  - action: download_github
+    src: https://github.com/Bob74/bob74_ipl
+    ref: master 
+    dest: ./resources/[standalone]/bob74_ipl
+
+  # screenshot-basic 
+  - action: download_file
+    path: ./tmp/screenshot-basic.zip
+    url: https://github.com/project-error/screenshot-basic/releases/latest/download/screenshot-basic.zip
+  - action: unzip
+    dest: ./resources/[standalone]/screenshot-basic
+    src: ./tmp/screenshot-basic.zip
+
+  # xsound 
+  - action: download_github
+    src: https://github.com/Xogy/xsound
+    ref: master 
+    dest: ./resources/[standalone]/xsound
+
+  # pma-voice  
+  - action: download_github
+    dest: ./resources/[standalone]/pma-voice
+    ref: main
+    src: https://github.com/Clean-Server-Pack/pma-voice
+
+  # ox_target | CLEAN VERSION
+  - action: download_file
+    path: ./tmp/ox_target.zip
+    url: https://github.com/Clean-Server-Pack/ox_target/releases/download/latest_production/ox_target.zip
+  - action: unzip
+    dest: ./resources/[standalone]
+    src: ./tmp/ox_target.zip
+
+  # sleepless_interact | CLEAN VERSION
+  - action: download_file
+    path: ./tmp/sleepless_interact.zip
+    url: https://github.com/Clean-Server-Pack/sleepless_interact/releases/download/latest_production/sleepless_interact.zip
+  - action: unzip
+    dest: ./resources/[standalone]
+    src: ./tmp/sleepless_interact.zip
+
+  # clean_chat
+  - action: download_file
+    path: ./tmp/clean_chat.zip
+    url: https://github.com/Clean-Server-Pack/clean_chat/releases/download/latest_production/clean_chat.zip
+  - action: unzip
+    dest: ./resources/[standalone]
+    src: ./tmp/clean_chat.zip
+
+  # oxmysql
+  - action: download_file
+    path: ./tmp/oxmysql.zip
+    url: https://github.com/overextended/oxmysql/releases/latest/download/oxmysql.zip
+  - action: unzip
+    dest: ./resources/[standalone]
+    src: ./tmp/oxmysql.zip
+
+
+  # [CLEAN] 
+  - action: ensure_dir 
+    path: ./resources/[clean]
+
+  # [CLEAN/ACTIVITIES] 
+  - action: ensure_dir 
+    path: ./resources/[clean]/[activities]
+
+  # [CLEAN/CORE] 
+  - action: ensure_dir 
+    path: ./resources/[clean]/[core]
+
+  # clean_lib
+  - action: download_file
+    path: ./tmp/clean_lib.zip
+    url: https://github.com/Clean-Server-Pack/clean_lib/releases/download/latest_production/clean_lib.zip
+  - action: unzip
+    dest: ./resources/[clean]/[core]
+    src: ./tmp/clean_lib.zip
+
+  # qbx_core | CLEAN VERSION
+  - action: download_github
+    dest: ./resources/[clean]/[core]/qbx_core
+    ref: main
+    src: https://github.com/Clean-Server-Pack/qbx_core
+
+  # [CLEAN/CRIMINAL] 
+  - action: ensure_dir 
+    path: ./resources/[clean]/[criminal]
+
+  # [CLEAN/GOVERNMENT] 
+  - action: ensure_dir 
+    path: ./resources/[clean]/[government]
+
+  # [CLEAN/JOBS] 
+  - action: ensure_dir 
+    path: ./resources/[clean]/[jobs]
+
+  # [CLEAN/UI] 
+  - action: ensure_dir 
+    path: ./resources/[clean]/[ui]
+
+  # [CLEAN/UTILITIES] 
+  - action: ensure_dir 
+    path: ./resources/[clean]/[utilities]
+
+  # clean_digiscanner 
+  - action: download_github
+    dest: ./resources/[clean]/[utilities]/clean_digiscanner
+    ref: main
+    src: https://github.com/Clean-Server-Pack/clean_digiscanner
+
+  # [CLEAN/VEHICLE] 
+  - action: ensure_dir 
+    path: ./resources/[clean]/[vehicle]
+
+  # [CREATORS] 
+  - action: ensure_dir 
+    path: ./resources/[creators]
+    
+  # [STREAM] 
+  - action: ensure_dir 
+    path: ./resources/[stream] 
+  - action: ensure_dir 
+    path: ./resources/[stream]/[maps]
+  - action: ensure_dir 
+    path: ./resources/[stream]/[vehicles]
+  - action: ensure_dir 
+    path: ./resources/[stream]/[shells]
+  - action: ensure_dir 
+    path: ./resources/[stream]/[clothing]
+  - action: ensure_dir 
+    path: ./resources/[stream]/[props]
+
+ 
+  # SQL STUFF 
+  - action: connect_database
+  - action: query_database
+    file: ./tmp/clean/clean.sql
+   
+  # CLEAN UP
+  - action: remove_path
+    path: ./tmp
