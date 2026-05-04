@@ -130,8 +130,8 @@ tasks:
   # ---------------------------------------------------------------------------
   # 5. [oxe]/[core]: carpeta oxe_lib (rellenar a mano desde Keymaster) + qbx_core
   # ---------------------------------------------------------------------------
-  - action: ensure_dir
-    path: ./resources/[oxe]/[core]/oxe_lib
+  #- action: ensure_dir
+  #  path: ./resources/[oxe]/[core]/oxe_lib
 
   - action: download_file
     path: ./tmp/qbx_core.zip
